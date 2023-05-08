@@ -244,17 +244,41 @@ namespace LINQ
             var personHighestAverageGrade = studentList.OrderByDescending(student => student.Subjects.Average(sub => sub.Grade)).FirstOrDefault();
             var average = studentList.Select(student => student.Subjects.Average(sub => sub.Grade)).Max();
             bool value = studentList.Any(student => student.Subjects.FirstOrDefault(sub => sub.SubjectName == "Math")?.Grade ==100);
-            if (value)
+            //if (value)
+            //{
+            //    Console.WriteLine("Someone got perfect in math");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Noone got perfect in math");
+            //}
+            //Console.WriteLine(personHighestAverageGrade?.FullName);
+            //Console.WriteLine(average);
+
+
+
+            //Equality Operator - SequenceEqual
+            var intList1 = new List<int>(){ 1, 2, 3, 4, 5, 6 };
+            var intList2 = new List<int>() { 1, 2, 3, 4, 5, 6 };
+            bool intCompare = intList1.SequenceEqual(intList2); //True
+            //Console.WriteLine(intCompare)
+            var employeeListCompare = Data.GetEmployees();
+            bool boolSE = employeeList.SequenceEqual(employeeListCompare, new EmployeeComparer());//True when EmployeeeComparer object is passed in
+            //Console.WriteLine(boolSE);
+
+            //Concatenation Operator
+            List<int> integerList1 = new List<int> { 1, 2, 3, 4 };
+            List<int> integerList2 = new List<int> { 5, 6, 7, 8,9,10 };
+
+            IEnumerable<int> integerConcat = integerList1.Concat(integerList2);
+            foreach (var item in integerConcat)
             {
-                Console.WriteLine("Someone got perfect in math");
+                Console.WriteLine(item);
             }
-            else
-            {
-                Console.WriteLine("Noone got perfect in math");
-            }
-            Console.WriteLine(personHighestAverageGrade?.FullName);
-            Console.WriteLine(average);
-            
+
+            List<Employee> newListEmp = new List<Employee> { new Employee { Id = 10, AnnualSalary = 59000, DepartmentId = 1, FirstName = "Thang", LastName = "Pham" } };
+
+
         }
     }
     public class EmployeeComparer : IEqualityComparer<Employee>
